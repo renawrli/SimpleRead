@@ -9,38 +9,24 @@
     <link rel="stylesheet" href="style.css"/>
 </head>
 
-
-
 <body>
+    <table>
+        <!-- <tr>
+            <td>
+                <p id="toggleNonMainText" style="text-align: left; padding-left: 10%; padding-right: 10%">Non-main Content: On</p>
+                <p style="text-align: left; padding-left: 10%; padding-right: 10%;">
+                <label class="switch" title="Disables/enables non-main content">
+                  <input id="toggleNonMain" type="checkbox">
+                  <span class="toggle"></span>
+                </label>
+              </p>
+            </td>
+        </tr> -->
 
-<!-- <table>
-
-  <tr>
-
-    <td>
-      <p id="toggleReadTime" style="text-align: left; padding-left: 10%; padding-right: 10%">Show read time: Off</p>
-
-    </td>
-    <td>
-      <p id="toggleSimple" style="text-align: left; padding-left: 10%; padding-right: 10%">Simplify page: Off</p>
-      <p style="text-align: left; padding-left: 10%; padding-right: 10%;">
-        <label class="switch">
-          <input id="simplify" type="checkbox" unchecked>
-          <span class="toggle"></span>
-        </label>
-      </p>
-    </td>
-
-  </tr>
-
-
-</table> -->
-
-
-  <p id="toggleReadTime" style="text-align: left; padding-left: 10%; padding-right: 10%">Show read time: Off</p>
+          <p id="toggleReadTime" style="text-align: left; padding-left: 10%; padding-right: 10%">Show read time: Off</p>
 
   <p id="toggleSimple" style="text-align: left; padding-left: 10%; padding-right: 10%">Simplify page: Off</p>
-  
+
   <p style="text-align: left; padding-left: 10%; padding-right: 10%;">
     <label class="switch">
       <input id="simplify" type="checkbox" unchecked>
@@ -48,13 +34,30 @@
     </label>
   </p>
 
+        <tr>
+            <td>
+                <p style="text-align: left; padding-left: 10%; padding-right: 10%;">Your actual time spent:</p>
+                <p style="text-align: left; padding-left: 10%; padding-right: 10%;">
+                <input id="userInput" type="number" min="1" value=250><br>
+                <button class="Button" id="timeBtn">Submit</button>
+            </td>
+        </tr>
 
+        <tr>
+            <td>
+                <img src="clock.png" alt="Estimate time: " width="50" height="50">
+                <p id="timeText" style="text-align: left; padding-left: 10%; padding-right: 10%;">10 minutes</p>
+            </td>
+        </tr>
 
-<script src="button.js"></script>
-
+        <tr>
+            <td>
+                <p style="text-align: left; padding-left: 10%; padding-right: 10%;">
+                <button class="Button" id="calcTime">Calculate Time</button>
+            </td>
+        </tr>
+    </table>
+    <script src="toggle.js"></script>
 </body>
-
-
-
 
 </html>
