@@ -1,0 +1,43 @@
+{
+
+  "name": "SimpleRead",
+  "version": "1.0",
+  "description": "Clutter-free online reading",
+  "manifest_version": 2,
+  "permissions": ["declarativeContent", "storage", "activeTab", "tabs", "<all_urls>", "alarms", "cookies"],
+  "background":
+  {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
+  "browser_action":
+  {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "SimpleRead.png",
+      "32": "SimpleRead.png",
+      "48": "SimpleRead.png",
+      "128": "SimpleRead.png"
+    }
+  },
+    "icons": {
+    "16": "SimpleRead.png",
+    "32": "SimpleRead.png",
+    "48": "SimpleRead.png",
+    "128": "SimpleRead.png"
+  },
+  "commands":
+  {
+    "toggle-on":
+    {
+      "suggested_key":
+      {
+        "default": "Ctrl+E",
+        "mac": "Command+E"
+      },
+      "description": "Enable extension"
+    }
+
+  }
+
+}
