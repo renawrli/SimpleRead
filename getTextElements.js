@@ -43,5 +43,5 @@ function getTextOfElement(elem) {
 result = getTextElements();
 
 // if(toggleStatus == -1) {
-//   "Read time: " + result + " minutes"
+//   result
 // }

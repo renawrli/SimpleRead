@@ -12,8 +12,12 @@ chrome.storage.sync.get(['nonMainCheck'], function(result) {
 
 chrome.storage.sync.get(['userSpeed'], function(result) {
   let currentSpeed = result.userSpeed;
-  speedText.innerHTML = currentSpeed + " word(s) per minute";
-  alert(currentSpeed)
+  speedText.innerHTML = Math.floor(currentSpeed) + ' word(s) per minute';
+});
+
+chrome.storage.sync.get(['userTime'], function(result) {
+  let currentTime = result.userTime;
+  timeText.innerHTML = Math.floor(currentTime) + ' minute(s)';
 });
 
 // on off (text)
@@ -43,13 +47,13 @@ function toggleNonMain(nonMainStatus, nonMainCheckStatus) {
   if(nonMainStatus == "Off"){
     nonMainStatus = "On"
     nonMainCheckStatus = true
-    toggleNonMainText.innerHTML = "Non-main Content: " + nonMainStatus;
+    toggleNonMainText.innerHTML = 'Non-main Content: ' + nonMainStatus;
     document.getElementById("toggleNonMain").checked = nonMainCheckStatus;
   }
   else {
     nonMainStatus = "Off"
     nonMainCheckStatus = false
-    toggleNonMainText.innerHTML = "Non-main Content: " + nonMainStatus;
+    toggleNonMainText.innerHTML = 'Non-main Content: ' + nonMainStatus;
     document.getElementById("toggleNonMain").checked = nonMainCheckStatus;
   }
   // updates save
@@ -64,7 +68,14 @@ function toggleNonMain(nonMainStatus, nonMainCheckStatus) {
 
 // getting user input (don't save this, save user read speed)
 function setUserTime() {
-    wordCount(document.getElementById("userInput").value)
+  var time = document.getElementById("userInput").value;
+  if (time == null) {
+    getReadTime();
+  }
+  wordCount(time)
+  chrome.storage.sync.set({'userTime': time}, function() {
+    displayReadTime();
+  });
 }
 
 function wordCount(userTime) {
@@ -92,28 +103,31 @@ function saveReadSpeed(readSpeed) {
 function getReadSpeed(count) {
     chrome.storage.sync.get(['userSpeed'], function(result) {
         let getUserSpeed = result.userSpeed;
+        speedText.innerHTML = Math.floor(getUserSpeed) + ' word(s) per minute';
         var readTime = (count / getUserSpeed);
-        displayReadTime(readTime);
     });
 }
 
 // display readTime
-function displayReadTime(readTime) {
-    timeText.innerHTML = readTime + " minute(s)";
+function displayReadTime() {
+  chrome.storage.sync.get(['userTime'], function(result) {
+    let getReadTime = result.userTime;
+    alert('display ' + getReadTime)
+    timeText.innerHTML = Math.floor(getReadTime) + ' minute(s)';
+  });
 }
 
-// function getReadTime() {
-//   chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-//     chrome.tabs.executeScript(
-//       tabs[0].id,
-//       {file: 'getTextElements.js'}, function (result) {
-//         toggleReadTime.innerHTML = result;
-//     })
-//   });
-// }
-
-// getReadTime();
+function getReadTime() {
+  chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+    chrome.tabs.executeScript(
+      tabs[0].id,
+      {file: 'getTextElements.js'}, function (result) {
+        timeText.innerHTML = Math.floor(result) + ' minute(s)';
+    })
+  });
+}
 
 document.getElementById('toggleNonMain').addEventListener('click', getToggleNonMain);
 document.getElementById('timeBtn').addEventListener('click', setUserTime);
+document.getElementById('userInput').addEventListener('change', setUserTime);
 document.getElementById('calcTime').addEventListener('click', setUserTime);
