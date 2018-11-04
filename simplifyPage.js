@@ -1,16 +1,4 @@
-var body = document.getElementsByTagName("body");
-var para = Array.from(document.getElementsByTagName("p"));
-console.log(para);
 
-var customTag = 'data-extension-simple-hidden';
-var distanceTag = 'data-extension-para-distance';
-
-var headers = [];
-var headerList = ["h1", "h2", "h3", "h4", "h5", "h6"];
-for (var i = 0; i < headerList.length; i++) {
-  var temp = Array.from(document.getElementsByTagName(headerList[i]));
-  headers = headers.concat(temp);
-}
 
 bodyElements = document.body.children
 
@@ -24,6 +12,21 @@ if (bodyElements[0].getAttribute(customTag)) {
 }
 
 if (!hasBeenRunBefore) {
+  var body = document.getElementsByTagName("body");
+  var para = Array.from(document.getElementsByTagName("p"));
+  console.log(para);
+
+  var customTag = 'data-extension-simple-hidden';
+  var distanceTag = 'data-extension-para-distance';
+
+  var headers = [];
+  var headerList = ["h1", "h2", "h3", "h4", "h5", "h6"];
+  for (var i = 0; i < headerList.length; i++) {
+    var temp = Array.from(document.getElementsByTagName(headerList[i]));
+    headers = headers.concat(temp);
+  }
+  para = para.concat(headers);
+
   for (let i = 0; i < bodyElements.length; i++) {
     let element = bodyElements[i];
     element.setAttribute(customTag, "not-hidden");
@@ -34,6 +37,8 @@ if (!hasBeenRunBefore) {
     return a - b;
   });
   console.log(para);
+
+
 
   // for (var j = 0; j < para.length; j++) {
   //   para[i].hidden = false;
@@ -58,6 +63,11 @@ if (!hasBeenRunBefore) {
     return a.getAttribute(distanceTag) - b.getAttribute(distanceTag);
   });
 
+
+  for (let i = 0; i < para.length; i++) {
+    para[i] = para[i].cloneNode(true);
+  }
+
   for (var j = 0; j < para.length; j++) {
     let element = para[j]
     element.setAttribute(customTag, "hidden");
@@ -66,6 +76,7 @@ if (!hasBeenRunBefore) {
     console.log(element);
   }
   bodyElements = document.body.children
+
 }
 
 
@@ -80,6 +91,13 @@ for (let i = 0; i < bodyElements.length; i++) {
     element.hidden = false
   }
 }
+// for (var j = 0; j < para.length; j++) {
+//   let element = para[j]
+//   element.setAttribute(customTag, "not-hidden");
+//   element.hidden = false;
+//   // body[0].appendChild(element);
+//   console.log(element);
+// }
 
 
 
