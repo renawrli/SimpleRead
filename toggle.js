@@ -112,21 +112,23 @@ function getReadSpeed(count) {
 function displayReadTime() {
   chrome.storage.sync.get(['userTime'], function(result) {
     let getReadTime = result.userTime;
-    alert('display ' + getReadTime)
+    // alert('display ' + getReadTime)
     timeText.innerHTML = Math.floor(getReadTime) + ' minute(s)';
   });
 }
 
-function getReadTime() {
-  chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-    chrome.tabs.executeScript(
-      tabs[0].id,
-      {file: 'getTextElements.js'}, function (result) {
-        timeText.innerHTML = Math.floor(result) + ' minute(s)';
-    })
-  });
-}
+// function getReadTime() {
+//   chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+//     chrome.tabs.executeScript(
+//       tabs[0].id,
+//       {file: 'getTextElements.js'}, function (result) {
+//         timeText.innerHTML = Math.floor(result/250) + ' minute(s)';
+//         speedText.innerHTML = '250 word(s) per minute';
+//     })
+//   });
+// }
 
+// getReadTime();
 document.getElementById('toggleNonMain').addEventListener('click', getToggleNonMain);
 document.getElementById('timeBtn').addEventListener('click', setUserTime);
 document.getElementById('userInput').addEventListener('change', setUserTime);
