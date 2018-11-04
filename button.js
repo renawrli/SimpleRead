@@ -28,5 +28,4 @@ function simplifyPage() {
   }
 }
 getReadTime();
-
 document.getElementById('simplify').addEventListener('click', simplifyPage);

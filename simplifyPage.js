@@ -1,14 +1,9 @@
-
-
 bodyElements = document.body.children
 
 var hasBeenRunBefore = false;
 
 if (bodyElements[0].getAttribute(customTag)) {
   hasBeenRunBefore = true
-  // for (var j = 0; j < para.length; j++) {
-  //   para[i].hidden = false;
-  // }
 }
 
 if (!hasBeenRunBefore) {
@@ -32,17 +27,12 @@ if (!hasBeenRunBefore) {
     element.setAttribute(customTag, "not-hidden");
   }
 
-  // var numbers = [4, 2, 5, 1, 3];
+
   para.sort(function(a, b) {
     return a - b;
   });
   console.log(para);
 
-
-
-  // for (var j = 0; j < para.length; j++) {
-  //   para[i].hidden = false;
-  // }
 
   let getTopOffset = function(element) {
     var yPosition = 0;
@@ -90,21 +80,4 @@ for (let i = 0; i < bodyElements.length; i++) {
     element.setAttribute(customTag, "not-hidden");
     element.hidden = false
   }
-}
-// for (var j = 0; j < para.length; j++) {
-//   let element = para[j]
-//   element.setAttribute(customTag, "not-hidden");
-//   element.hidden = false;
-//   // body[0].appendChild(element);
-//   console.log(element);
-// }
-
-
-
-function simplify() {
-  body.style.visibility = "hidden";
-  // document.append
-  //save p and h* tagged elements
-  //nuke html body
-  //apply saved p and h*
 }

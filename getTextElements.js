@@ -14,14 +14,17 @@ function getTextElements() {
   }
   // alert(arr.length);
   var wordCount = 0;
-
+  var wordString = ""
   for (var i = 0; i<arr.length; i++) {
     var elem = arr[i];
     var words = getTextOfElement(elem);
-    wordCount += words.split(' ').length;
+    wordString += words
+    // wordCount += words.split(' ').length;
   }
   // toggleReadTime.innerHTML = "Read time: "+wordCount/250.0;
   // alert( wordCount/250.0);
+  wordCount = wordString.trim().split(/\s+/).length;
+  console.log(wordCount)
   return wordCount/250.0;
 }
 
