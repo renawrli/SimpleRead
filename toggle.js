@@ -11,8 +11,9 @@ chrome.storage.sync.get(['nonMainCheck'], function(result) {
 });
 
 chrome.storage.sync.get(['userSpeed'], function(result) {
-  let currentTime = result.userSpeed;
-  timeText.innerHTML = currentTime + " minute(s)";
+  let currentSpeed = result.userSpeed;
+  speedText.innerHTML = currentSpeed + " word(s) per minute";
+  alert(currentSpeed)
 });
 
 // on off (text)
@@ -67,27 +68,31 @@ function setUserTime() {
 }
 
 function wordCount(userTime) {
-    var wordCount = 5000;
-    var readSpeed = Math.floor(wordCount / userTime);
-    if (readSpeed == 0) {
-        readSpeed = 1;
-    }
-    saveReadSpeed(readSpeed);
-    getReadSpeed(wordCount);
+  chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+    chrome.tabs.executeScript(
+      tabs[0].id,
+      {file: 'getTextElements.js'}, function (result) {
+        var count = result;
+        var readSpeed = count / userTime;
+        if (readSpeed == 0) {
+            readSpeed = 1;
+        }
+        saveReadSpeed(readSpeed);
+        getReadSpeed(count);
+      })
+  });
 }
 
 // update (save) readSpeed
 function saveReadSpeed(readSpeed) {
     chrome.storage.sync.set({'userSpeed': readSpeed}, function() {
-        // Notify that we saved.
-        console.log('Settings updated');
     });
 }
 
-function getReadSpeed(wordCount) {
+function getReadSpeed(count) {
     chrome.storage.sync.get(['userSpeed'], function(result) {
         let getUserSpeed = result.userSpeed;
-        var readTime = wordCount / getUserSpeed;
+        var readTime = (count / getUserSpeed);
         displayReadTime(readTime);
     });
 }
@@ -97,19 +102,18 @@ function displayReadTime(readTime) {
     timeText.innerHTML = readTime + " minute(s)";
 }
 
-var simplePage = 1;
-function getReadTime() {
-  chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-    chrome.tabs.executeScript(
-      tabs[0].id,
-      {file: 'getTextElements.js'}, function (result) {
-        toggleReadTime.innerHTML = result;
-    })
-  });
-}
+// function getReadTime() {
+//   chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+//     chrome.tabs.executeScript(
+//       tabs[0].id,
+//       {file: 'getTextElements.js'}, function (result) {
+//         toggleReadTime.innerHTML = result;
+//     })
+//   });
+// }
 
-getReadTime();
+// getReadTime();
 
 document.getElementById('toggleNonMain').addEventListener('click', getToggleNonMain);
 document.getElementById('timeBtn').addEventListener('click', setUserTime);
-document.getElementById('calcTime').addEventListener('click', wordCount);
+document.getElementById('calcTime').addEventListener('click', setUserTime);

@@ -1,7 +1,7 @@
 var result
-var toggleStatus  = 1;
+// var toggleStatus  = 1;
 function getTextElements() {
-  toggleStatus *= -1;
+  // toggleStatus *= -1;
   // alert("getTextElements called");
   var arr = Array.from(document.getElementsByTagName("p"));
 
@@ -25,7 +25,7 @@ function getTextElements() {
   // alert( wordCount/250.0);
   wordCount = wordString.trim().split(/\s+/).length;
   console.log(wordCount)
-  return wordCount/250.0;
+  return wordCount;
 }
 
 function getTextOfElement(elem) {
@@ -42,6 +42,6 @@ function getTextOfElement(elem) {
 
 result = getTextElements();
 
-if(toggleStatus == -1) {
-  "Read time: " + result + " minutes"
-}
+// if(toggleStatus == -1) {
+//   "Read time: " + result + " minutes"
+// }
