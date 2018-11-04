@@ -1,7 +1,7 @@
 var result
-// var toggleStatus  = 1;
+var toggleStatus  = 1;
 function getTextElements() {
-  // toggleStatus *= -1;
+  toggleStatus *= -1;
   // alert("getTextElements called");
   var arr = Array.from(document.getElementsByTagName("p"));
 
@@ -42,6 +42,6 @@ function getTextOfElement(elem) {
 
 result = getTextElements();
 
-// if(toggleStatus == -1) {
-//   result
-// }
+if(toggleStatus == -1) {
+  result
+}

@@ -25,7 +25,7 @@ chrome.storage.sync.get(['userSpeed'], function(result) {
 chrome.storage.sync.get(['userTime'], function(result) {
   let currentTime = result.userTime;
   if (currentTime != undefined) {
-    timeText.innerHTML = Math.floor(currentTime) + ' minute(s)';
+    timeText.innerHTML = (Math.floor(currentTime)) + ' minute(s)';
   }
 });
 
@@ -79,11 +79,10 @@ function toggleNonMain(nonMainStatus, nonMainCheckStatus) {
 function setUserTime() {
 
   var time = document.getElementById("userInput").value;
-    alert(time);
 
-  if (time.length == 0 || time == 0) {
-    alert('get read time');
+  if (time.length == 0) {
     getReadTime();
+    return;
   }
   wordCount(time)
   chrome.storage.sync.set({'userTime': time}, function() {
@@ -98,8 +97,8 @@ function wordCount(userTime) {
       {file: 'getTextElements.js'}, function (result) {
         var count = result;
         var readSpeed = count / userTime;
-        if (readSpeed == 0) {
-            readSpeed = 1;
+        if (readSpeed.length == 0) {
+            readSpeed = 250;
         }
         saveReadSpeed(readSpeed);
         getReadSpeed(count);
@@ -117,7 +116,6 @@ function getReadSpeed(count) {
     chrome.storage.sync.get(['userSpeed'], function(result) {
         let getUserSpeed = result.userSpeed;
         speedText.innerHTML = Math.floor(getUserSpeed) + ' word(s) per minute';
-        var readTime = (count / getUserSpeed);
     });
 }
 
@@ -125,8 +123,7 @@ function getReadSpeed(count) {
 function displayReadTime() {
   chrome.storage.sync.get(['userTime'], function(result) {
     let getReadTime = result.userTime;
-    // alert('display ' + getReadTime)
-    timeText.innerHTML = Math.floor(getReadTime) + ' minute(s)';
+    timeText.innerHTML = (Math.floor(getReadTime)) + ' minute(s)';
   });
 }
 
@@ -135,9 +132,8 @@ function getReadTime() {
     chrome.tabs.executeScript(
       tabs[0].id,
       {file: 'getTextElements.js'}, function (result) {
-        alert(result)
-        timeText.innerHTML = Math.floor(result/250) + ' minute(s)';
-        speedText.innerHTML = '250 word(s) per minute';
+        timeText.innerHTML = (Math.floor(result/250)) + ' minute(s)'
+        speedText.innerHTML = 250 + ' word(s) per minute'
     })
   });
 }
