@@ -1,23 +1,32 @@
 'use strict';
 
+
 chrome.storage.sync.get(['nonMain'], function(result) {
   let currentNonMain = result.nonMain;
-  toggleNonMainText.innerHTML = 'Non-main Content: ' + currentNonMain;
+  if (currentNonMain != undefined) {
+    toggleNonMainText.innerHTML = 'Non-main Content: ' + currentNonMain;
+  }
 });
 
 chrome.storage.sync.get(['nonMainCheck'], function(result) {
   let currentNonMainCheck = result.nonMainCheck;
-  document.getElementById("toggleNonMain").checked = currentNonMainCheck;
+  if (currentNonMainCheck != undefined) {
+    document.getElementById("toggleNonMain").checked = currentNonMainCheck;
+  }
 });
 
 chrome.storage.sync.get(['userSpeed'], function(result) {
   let currentSpeed = result.userSpeed;
-  speedText.innerHTML = Math.floor(currentSpeed) + ' word(s) per minute';
+  if (currentSpeed != undefined) {
+    speedText.innerHTML = Math.floor(currentSpeed) + ' word(s) per minute';
+  }
 });
 
 chrome.storage.sync.get(['userTime'], function(result) {
   let currentTime = result.userTime;
-  timeText.innerHTML = Math.floor(currentTime) + ' minute(s)';
+  if (currentTime != undefined) {
+    timeText.innerHTML = Math.floor(currentTime) + ' minute(s)';
+  }
 });
 
 // on off (text)
@@ -117,16 +126,16 @@ function displayReadTime() {
   });
 }
 
-// function getReadTime() {
-//   chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-//     chrome.tabs.executeScript(
-//       tabs[0].id,
-//       {file: 'getTextElements.js'}, function (result) {
-//         timeText.innerHTML = Math.floor(result/250) + ' minute(s)';
-//         speedText.innerHTML = '250 word(s) per minute';
-//     })
-//   });
-// }
+function getReadTime() {
+  chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+    chrome.tabs.executeScript(
+      tabs[0].id,
+      {file: 'getTextElements.js'}, function (result) {
+        timeText.innerHTML = Math.floor(result/250) + ' minute(s)';
+        speedText.innerHTML = '250 word(s) per minute';
+    })
+  });
+}
 
 // getReadTime();
 document.getElementById('toggleNonMain').addEventListener('click', getToggleNonMain);
