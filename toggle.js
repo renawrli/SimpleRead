@@ -77,8 +77,12 @@ function toggleNonMain(nonMainStatus, nonMainCheckStatus) {
 
 // getting user input (don't save this, save user read speed)
 function setUserTime() {
+
   var time = document.getElementById("userInput").value;
-  if (time == null) {
+    alert(time);
+
+  if (time.length == 0 || time == 0) {
+    alert('get read time');
     getReadTime();
   }
   wordCount(time)
@@ -131,6 +135,7 @@ function getReadTime() {
     chrome.tabs.executeScript(
       tabs[0].id,
       {file: 'getTextElements.js'}, function (result) {
+        alert(result)
         timeText.innerHTML = Math.floor(result/250) + ' minute(s)';
         speedText.innerHTML = '250 word(s) per minute';
     })
